@@ -59,4 +59,3 @@ while True:
             Drive(0,90)
             display.show(Image.ARROW_W)
     sleep(20)
-

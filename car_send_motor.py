@@ -4,31 +4,34 @@
 
 from microbit import *
 import radio
-
+import read_map
 chnl = xx #change the channel to your team number
 radio.config(channel=chnl)
 radio.on()
 
-while True:
-    y = accelerometer.get_y() 
-    a = button_a.is_pressed()
-    b = button_b.is_pressed()
-    if  a:
-        #left
-        display.show(Image.ARROW_W)
-        radio.send("W")
-    elif b:
-        #right
-        display.show(Image.ARROW_E)
-        radio.send("E")
-    elif y>300:
-        #backwards
+map = maze("sectorMap4.txt")
+path = BFS(map)
+number_of_move = len(path)
+cnt = 0
+while cnt != number_of_move - 1:
+    # tuple for path
+    x1 = path[cnt][0]
+    y1 = path[cnt][1]
+    x2 = path[cnt + 1][0]
+    y2 = path[cnt + 1][1]
+
+    if x1 < x2 and y1 == y2:
         display.show(Image.ARROW_S)
         radio.send("S")
-    elif y<-300:
-        # forwards
+    elif x1 > x2 and y1 == y2:
         display.show(Image.ARROW_N)
         radio.send("N")
+    elif y1 > y2 and x1 == x2:
+        display.show(Image.ARROW_W)
+        radio.send("W")
+    elif y1 < y2 and x1 == x2:
+        display.show(Image.ARROW_E)
+        radio.send("E")
     else:
         continue
     sleep(20)
