@@ -26,7 +26,7 @@ def BFS(map):
             break
 
     if not start:
-        return "System Error"
+        return "None"
     q = deque([(start[0], start[1], [])])
     visited = set()
     visited.add(start)
@@ -44,7 +44,7 @@ def BFS(map):
                     q.append((nr, nc, path + [(r, c)]))  # Store path
                     visited.add((nr, nc))
 
-    return "No path found to 'X'!"
+    return "None"
 
 
 # if __name__ == '__main__':
