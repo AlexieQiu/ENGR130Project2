@@ -62,10 +62,3 @@ while cnt != number_of_move - 1:
     else:
         continue
     sleep(20)
-sleep(500)
-# Then goes back to the original position
-for i in range(len(record), 0, -1):
-    radio.send(record[i])
-
-for i in range(len(record)):
-    if distance(TRIGGER, ECHO) < 10
