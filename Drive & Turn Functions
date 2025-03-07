@@ -18,16 +18,16 @@ def forward_1():
 
 def turn_left():
     sleep(1000)
-    r.motor(M2B, -90)
-    r.motor(M1A, -90)
-    sleep(239)
+    r.motor(M2B, -45)
+    r.motor(M1A, -45)
+    sleep(400)
     r.motor(M2B, 0)
     r.motor(M1A, 0)
 
 def turn_right():
     sleep(1000)
-    r.motor(M2B, 90)
-    r.motor(M1A, 90)
-    sleep(239)
+    r.motor(M2B, 45)
+    r.motor(M1A, 45)
+    sleep(400)
     r.motor(M2B, 0)
     r.motor(M1A, 0)
