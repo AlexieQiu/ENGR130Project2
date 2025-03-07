@@ -31,8 +31,8 @@ def distance(tp, ep):
         ts = ts * 17 // 100  # if system did not timeout, then send
         # back a scaled value
     return ts  # Return timeout error as a negative number (-1)
-map = maze("sectorMap4.txt")
-path = BFS(map)
+map = read_map.maze("sectorMap4.txt")
+path = read_map.BFS(map)
 number_of_move = len(path)
 cnt = 0
 record = ""
@@ -45,20 +45,39 @@ while cnt != number_of_move - 1:
 
     if x1 < x2 and y1 == y2:
         display.show(Image.ARROW_S)
-        radio.send("S")
+        if record[len(record) - 1] == "W":
+            radio.send("L")
+        elif record[len(record) - 1] == "E":
+            radio.send("R")
+        radio.send("F")
         record += "S"
     elif x1 > x2 and y1 == y2:
         display.show(Image.ARROW_N)
-        radio.send("N")
+        if record[len(record) - 1] == "W":
+            radio.send("R")
+        else:
+            radio.send("L")
+        radio.send("F")
         record += "N"
     elif y1 > y2 and x1 == x2:
         display.show(Image.ARROW_W)
-        radio.send("W")
+        if record[len(record) - 1] == "N":
+            radio.send("L")
+        else:
+            radio.send("R")
+        radio.send("F")
         record += "W"
     elif y1 < y2 and x1 == x2:
         display.show(Image.ARROW_E)
-        radio.send("E")
+        if record[len(record) - 1] == "N":
+            radio.send("R")
+        else:
+            radio.send("L")
+        radio.send("F")
         record += "E"
     else:
         continue
     sleep(20)
+
+
+
