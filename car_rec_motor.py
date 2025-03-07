@@ -35,21 +35,71 @@ def distance(tp, ep):
         ts = ts * 17 // 100  # if system did not timeout, then send
         # back a scaled value
     return ts  # Return timeout error as a negative number (-1)
+def send_signal(txt):
+    a = button_a.is_pressed()
+    if a:
+        map, num = read_map.maze(txt)
+        display.show(num)
+        path = read_map.BFS(map)
+        number_of_move = len(path)
+        cnt = 0
+        record = ""
+        while cnt != number_of_move - 1:
+            # tuple for path
+            x1 = path[cnt][0]
+            y1 = path[cnt][1]
+            x2 = path[cnt + 1][0]
+            y2 = path[cnt + 1][1]
 
-    
-def Drive(lft,rgt):
-# Receive the percent power to drive each motor in a specific direction
-    r.motor(M2B, lft)
-    r.motor(M1A, rgt)
+            if x1 < x2 and y1 == y2:
+                display.show(Image.ARROW_S)
+                if record[len(record) - 1] == "W":
+                    drive_turn.turn_left()
+                elif record[len(record) - 1] == "E":
+                    drive_turn.turn_right()
+                drive_turn.forward_1()
+                record += "S"
+            elif x1 > x2 and y1 == y2:
+                display.show(Image.ARROW_N)
+                if record[len(record) - 1] == "W":
+                    drive_turn.turn_right()
+                else:
+                    drive_turn.turn_left()
+                drive_turn.forward_1()
+                record += "N"
+            elif y1 > y2 and x1 == x2:
+                display.show(Image.ARROW_W)
+                if record[len(record) - 1] == "N":
+                    drive_turn.turn_left()
+                else:
+                    drive_turn.turn_right()
+                drive_turn.forward_1()
+                record += "W"
+            elif y1 < y2 and x1 == x2:
+                display.show(Image.ARROW_E)
+                if record[len(record) - 1] == "N":
+                    drive_turn.turn_right()
+                else:
+                   drive_turn.turn_left()
+                drive_turn.forward_1()
+                record += "E"
+            else:
+                continue
+            sleep(20)
 
-while True:
-    s = radio.receive()                    # receive direction command
-    if s is not None:
-        if s == "F":
-            drive_turn.forward_1()
-        if s=="L":                         # Drive forward
-            drive_turn.turn_left()
-        else:
-            drive_turn.turn_right()
-    sleep(20)
+
+
+if __name__ == '__main__':
+    # txt_file = input("Input your maze")
+    txt_file = "sectorMap4.txt"
+    chnl = 4  # change the channel to your team number
+    radio.config(channel=chnl)
+    # radio.on()
+    TIME_OUT = 100000  # Increase time out to see farther, but
+    # this will reduce the sample rate
+    # ECHO = pin1  # ping sensor uses a single pin for ECHO and Trigger
+    # TRIGGER = pin1
+    send_signal(txt_file)
+
+
 
