@@ -3,7 +3,7 @@ from collections import deque
 def maze(txt):
     fp = open(txt, "r")
     map = []
-    cnt = len(fp.readlines())
+    cnt = len(fp.readlines()) - 1
     fp.close()
     fp = open(txt, "r")
     num_line = 0
@@ -12,8 +12,8 @@ def maze(txt):
             break
         map.append(fp.readline().split(","))
         num_line += 1
-
-    return map
+    num = int(fp.readline())
+    return (map, num)
 
 
 def BFS(map):
