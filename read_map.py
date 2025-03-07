@@ -26,13 +26,14 @@ def BFS(map):
 
     if not start:
         return "None"
-    q = deque([(start[0], start[1], [])])
+    q = []
+    q.append((start[0], start[1], []))
     visited = set()
     visited.add(start)
 
     directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     while q:
-        r, c, path = q.popleft()
+        r, c, path = q.pop()
         if map[r][c] == "X":
             return path + [(r, c)]
         for dr, dc in directions:
@@ -44,7 +45,3 @@ def BFS(map):
                     visited.add((nr, nc))
 
     return "None"
-
-if __name__ == '__main__':
-    txt = "sectorMap4.txt"
-    print(maze(txt))
