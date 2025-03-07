@@ -46,6 +46,7 @@ def send_signal(txt):
         record = ""
         while cnt != number_of_move - 1:
             # tuple for path
+
             x1 = path[cnt][0]
             y1 = path[cnt][1]
             x2 = path[cnt + 1][0]

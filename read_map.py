@@ -1,9 +1,7 @@
-from collections import deque
-
 def maze(txt):
     fp = open(txt, "r")
     map = []
-    cnt = len(fp.readlines()) - 1
+    cnt = len(fp.readlines())
     fp.close()
     fp = open(txt, "r")
     num_line = 0
@@ -47,3 +45,6 @@ def BFS(map):
 
     return "None"
 
+if __name__ == '__main__':
+    txt = "sectorMap4.txt"
+    print(maze(txt))
