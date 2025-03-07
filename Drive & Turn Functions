@@ -10,7 +10,7 @@ r.setup()
 
 def forward_1():
     sleep(1000)
-    r.motor(M2B, 82.5)
+    r.motor(M2B, 81)
     r.motor(M1A, -90)
     sleep(730)
     r.motor(M2B, 0)
